@@ -7,8 +7,9 @@ const Home = () => {
 
   const handleSearch = () => {
     if (city.trim()) {
-      navigate(`/search?city=${city.trim()}`);
-    }
+        const searchUrl = `/search?city=${city.trim()}`;
+        navigate(searchUrl, { state: { searchUrl } });
+      }
   };
 
   useEffect(() => {

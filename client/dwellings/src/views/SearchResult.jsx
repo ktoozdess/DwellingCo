@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import PropertyList from './PropertyList'; 
 
 const SearchResult = () => {
-  const [selectedTransaction, setSelectedTransaction] = useState('for sale');
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true); 
   const itemsPerPage = 21; 
@@ -32,10 +31,6 @@ const SearchResult = () => {
 
     fetchProperties();
   }, [city]);
-
-  const handleFilter = () => {
-    console.log('Filtering properties:', { selectedTransaction });
-  };
 
   const totalPages = Math.ceil(properties.length / itemsPerPage);
 
@@ -80,7 +75,7 @@ const SearchResult = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4">
-      <div className="mb-6 p-4 bg-white border border-gray-300 rounded-lg shadow-md">
+      {/* <div className="mb-6 p-4 bg-white border border-gray-300 rounded-lg shadow-md">
         <h3 className="text-xl font-bold mb-4 text-black">Filters</h3>
         <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
           <select
@@ -99,7 +94,7 @@ const SearchResult = () => {
             Apply Filters
           </button>
         </div>
-      </div>
+      </div> */}
       
       <h2 className="text-3xl font-bold text-gray-800 mb-6">Properties for {city}</h2>
       <PropertyList properties={getCurrentProperties()} />
