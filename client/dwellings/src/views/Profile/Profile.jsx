@@ -1,9 +1,12 @@
 // ProfilePage.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -20,6 +23,7 @@ const ProfilePage = () => {
         if (response.status === 401) {
             // Token expired, log out user
             localStorage.removeItem('token');
+            navigate('/login')
             // Redirect to login or show a message to log in again
           }
 
@@ -29,6 +33,7 @@ const ProfilePage = () => {
         setUserData(data);
       } catch (error) {
         console.error('Error fetching profile data:', error);
+        navigate('/signin')
       } finally {
         setLoading(false);
       }
@@ -42,7 +47,8 @@ const ProfilePage = () => {
   if (!userData) return <p>Error loading profile data.</p>;
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="pt-6 bg-gray-100 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6">
       <h2 className="text-2xl font-bold text-gray-800">Profile</h2>
       <div className="mt-4 bg-white p-4 rounded shadow-lg">
         <h3 className="text-xl font-semibold text-gray-800">
@@ -60,6 +66,7 @@ const ProfilePage = () => {
         </p>
       </div>
     </div>
+      </div>
     </div>
   );
 };

@@ -10,9 +10,11 @@ import PropertyDetails from './views/PropertyDetails';
 import LoginPage from './views/LoginPage/LoginPage';
 import RegistrationPage from './views/RegistrationPage/RegistrationPage';
 import ProfilePage from './views/Profile/Profile';
+import { AuthProvider } from './Provider/AuthProvider';
 
  const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -31,6 +33,7 @@ import ProfilePage from './views/Profile/Profile';
         <Footer />
       </div>
     </Router>
+    </AuthProvider>
   );
 };
 

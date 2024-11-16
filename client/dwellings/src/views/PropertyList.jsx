@@ -22,7 +22,7 @@ const PropertyList = ({ properties }) => {
           <img src={property.previewimg} className="w-full h-48 object-cover" />
           <div className="p-4">
             <h3 className="text-lg font-semibold text-gray-800">{property.title}</h3>
-            <p className="text-xl text-gray-600 mt-2">{property.price}</p>
+            <p className="text-xl text-gray-600 mt-2">{property.price} &#8364; / month</p>
             <p className="text-xl text-gray-600 mt-2">{property.location.city}, {property.location.district}, {property.location.street}</p>
             <p className="mt-2 text-gray-700">{truncateDescription(property.description)}</p> {/* Используем функцию для обрезки описания */}
             <p className="mt-2 text-gray-700">Contact: {property.person}</p>

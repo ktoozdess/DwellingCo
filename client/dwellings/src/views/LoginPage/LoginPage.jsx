@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Добавляем навигацию
+import { useAuth } from "../../Provider/AuthProvider";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false); // Индикатор загрузки
+  const [error, setError] = useState(null); // Обработка ошибок
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -13,6 +19,14 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.email || !formData.password) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
 
     try {
       const response = await fetch("http://localhost:5001/api/login", {
@@ -29,10 +43,13 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-      alert("Logged in successfully!");
       localStorage.setItem("token", data.token);
+      setIsAuthenticated(true); // Обновляем статус
+      navigate("/"); // Перенаправляем на страницу профиля
     } catch (error) {
-      alert(error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,11 +80,13 @@ const LoginPage = () => {
               />
             </div>
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           <button
             type="submit"
             className="w-full py-3 px-4 border border-transparent text-sm font-semibold rounded-md text-white bg-black hover:bg-gray-800 transition duration-300"
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
       </div>

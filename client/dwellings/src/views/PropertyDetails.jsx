@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
+import PropertyMap from '../components/PropertyMap';
 
 const PropertyDetails = () => {
   const location = useLocation();
@@ -9,6 +10,7 @@ const PropertyDetails = () => {
   const [property, setProperty] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const searchUrl = location.state?.searchUrl;
 
   const settings = {
@@ -52,7 +54,19 @@ const PropertyDetails = () => {
             height: 80px;
             animation: spin 1s linear infinite;
           }
+            .slick-prev, .slick-next {
+              background-color: black;
+              color: white;
+              border-radius: 50%;
+              padding: 10px;
+              z-index: 10;
+            }
 
+            .slick-prev:before, .slick-next:before {
+              color: white;
+            }
+
+          
           @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -75,6 +89,14 @@ const PropertyDetails = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
   };
+  const openShareModal = () => {
+    setIsShareModalOpen(true);
+  };
+
+  const closeShareModal = () => {
+    setIsShareModalOpen(false);
+  };
+
 
   const nextImage = () => {
     const currentIndex = property.images.indexOf(selectedImage);
@@ -100,7 +122,7 @@ const PropertyDetails = () => {
       {/* Property Title and Basic Info */}
       <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
         <h1 className="text-3xl font-bold text-gray-900">{property.title}</h1>
-        <p className="text-lg text-gray-600 mt-2">{property.price}/month - {property.location.city}, {property.location.district}, {property.location.street}</p>
+        <p className="text-lg text-gray-600 mt-2">{property.price} &#8364; /month - {property.location.city}, {property.location.district}, {property.location.street}</p>
       </div>
 
       {/* Image Gallery with Slider */}
@@ -179,7 +201,7 @@ const PropertyDetails = () => {
 
         <div className="mt-6">
           <h3 className="text-lg font-semibold text-gray-800">Location</h3>
-          <p className="text-gray-700">{property.location.address}</p>
+          <p className="text-gray-700">{property.location.city}, {property.location.district}, {property.location.street}</p>
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-4">
@@ -210,21 +232,70 @@ const PropertyDetails = () => {
           </div>
         </div>
       </div>
+      <div className="relative z-10">
+        <PropertyMap city={property.location.city} street={property.location.street} />
+      </div>
 
-      {/* Contact Us - Phone Button */}
-    <div className="bg-gray-50 p-6 mt-8 rounded-lg shadow-lg">
-      <h2 className="text-xl font-semibold text-gray-900">Interested? Call Us</h2>
-      <p className="text-gray-700 mt-2">Click the button below to call us directly!</p>
-      <a
-        href={`tel:${property.phone}`} 
-        className="bg-black text-white py-2 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition duration-300 w-3/12 my-5"
+      <div className="bg-gray-50 p-6 mt-8 rounded-lg shadow-lg">
+        <h2 className="text-xl font-semibold text-gray-900">Interested? Call Us</h2>
+        <p className="text-gray-700 mt-2">Click the button below to call us directly!</p>
+        <a
+          href={`tel:${property.phone}`} 
+          className="bg-black text-white py-2 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition duration-300 w-4/12 my-5"
+        >
+          Call Us
+        </a>
+
+        {/* Share Button */}
+        <button
+          onClick={openShareModal}
+          className="bg-blue-500 text-white py-2 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-600 transition duration-300 w-4/12"
+        >
+          Share
+        </button>
+      </div>
+
+      {/* Share Modal */}
+      {isShareModalOpen && (
+  <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-[9999]">
+    <div className="bg-black rounded-lg p-6 w-80">
+      <h3 className="text-2xl font-semibold text-white mb-6 text-center">Share</h3>
+      <div className="flex flex-row justify-center gap-4">
+        <a
+          href={`https://t.me/share/url?url=${window.location.href}&text=${property.title}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex justify-center space-x-3 items-center text-gray-300 hover:text-gray-100 text-lg text-center transition-colors duration-300"
+        >
+          <img className="w-10" src="https://iconsdwelling.r1-it.storage.cloud.it/telegram_logo_icon.png" />
+        </a>
+        <a
+          href={`https://wa.me/?text=${window.location.href}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex justify-center space-x-3 items-center text-gray-300 hover:text-gray-100 text-lg text-center transition-colors duration-300"
+        >
+          <img className="w-10" src="https://iconsdwelling.r1-it.storage.cloud.it/whatsapp_logo_icon.png" />  
+        </a>
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex justify-center space-x-3 items-center text-gray-300 hover:text-gray-100 text-lg text-center transition-colors duration-300"
+        >
+          <img className="w-10" src="https://iconsdwelling.r1-it.storage.cloud.it/facebook_logo_icon.png" />         
+        </a>
+      </div>
+      <button
+        onClick={closeShareModal}
+        className="mt-6 bg-gray-700 text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-300 w-full"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 16.5l-4.2-4.2c-1.4-1.4-3.8-1.1-4.8.6l-2 3.9c-1-.8-2.1-1.6-3.3-2.5L7 11c-2.3-2.3-2.6-6-.4-8.4L2.7 2.7C2.1 3.3 1 4 1 5c0 5.5 4.5 10 10 10s10-4.5 10-10c0-1-.5-1.7-1.7-2.3z"/>
-        </svg>
-        Call Us
-      </a>
+        Close
+      </button>
     </div>
+  </div>
+)}
+
 
     </div>
   );
