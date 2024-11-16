@@ -7,6 +7,7 @@ const authMiddleware = require('./authMiddleware');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Инициализация переменных окружения
 dotenv.config();
@@ -139,4 +140,12 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
+});
+
+
+app.use(express.static(path.join(__dirname, '../client/dwellings/dist')));
+
+// Прокси для всех других запросов
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dwellings/dist', 'index.html'));
 });
