@@ -23,6 +23,13 @@ app.use(cors({
   credentials: true, // Allow cookies or other credentials
 }));
 
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Прокси для всех других запросов
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
 app.use(express.json());
 
 // Подключение к MongoDB
@@ -143,9 +150,3 @@ app.listen(PORT, () => {
 });
 
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Прокси для всех других запросов
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-});
