@@ -2,20 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const Property = require('./models/Property');
-const User = require('./models/User'); // Импортируем модель пользователя
+const User = require('./models/User'); 
 const authMiddleware = require('./authMiddleware');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Инициализация переменных окружения
 dotenv.config();
 
-// Инициализация приложения
 const app = express();
 
-// CORS Middleware
 app.use(cors({
   origin: 'http://5.249.145.114:5002/', // Allow requests only from this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
@@ -23,12 +20,16 @@ app.use(cors({
   credentials: true, // Allow cookies or other credentials
 }));        
 
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
 app.use(express.json());
 
-// Подключение к MongoDB
 connectDB();
 
-// Регистрация пользователя
 app.post('/api/register', async (req, res) => {
   const { name, surname, email, password } = req.body;
 
@@ -49,7 +50,6 @@ app.post('/api/register', async (req, res) => {
 });
 
 
-// Логин пользователя
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -60,13 +60,11 @@ app.post('/api/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Проверка пароля
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Генерация токена
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '3h',
     });
@@ -94,7 +92,6 @@ app.get('/api/profile', authMiddleware, async (req, res) => {
   }
 });
 
-// Пример маршрута для поиска и отображения свойств
 app.get('/api/property/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -110,7 +107,6 @@ app.get('/api/property/:id', async (req, res) => {
   }
 });
 
-// Пример маршрута для получения списка свойств с фильтрацией по городу
 app.get('/api/properties', async (req, res) => {
   const { city } = req.query;
 
@@ -131,10 +127,6 @@ app.get('/api/properties', async (req, res) => {
   }
 });
 
-// Пример маршрута
-//app.get('/', (req, res) => {
-//  res.send('Сервер работает!');
-//});
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -148,3 +140,4 @@ const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
 });
+

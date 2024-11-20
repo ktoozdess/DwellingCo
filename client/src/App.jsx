@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './views/Home'; // Главная страница
-import NotFound from './views/NotFound'; // Страница 404
+import Home from './views/Home';
+import NotFound from './views/NotFound';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AboutUs from './views/AboutUs';

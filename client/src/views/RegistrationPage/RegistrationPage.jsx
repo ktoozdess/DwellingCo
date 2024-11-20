@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Provider/AuthProvider";
 
 const RegistrationPage = () => {
-  const { setIsAuthenticated } = useAuth(); // Используем функцию для обновления авторизации
+  const { setIsAuthenticated } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
@@ -48,9 +48,9 @@ const RegistrationPage = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem("token", data.token); // Сохраняем токен
-      setIsAuthenticated(true); // Обновляем глобальный статус авторизации
-      navigate("/profile"); // Перенаправляем на страницу профиля или главную
+      localStorage.setItem("token", data.token); 
+      setIsAuthenticated(true); 
+      navigate("/profile");
     } catch (error) {
       setError(error.message);
     } finally {

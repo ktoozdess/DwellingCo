@@ -119,13 +119,11 @@ const PropertyDetails = () => {
         <span>Property Details</span>
       </div>
 
-      {/* Property Title and Basic Info */}
       <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
         <h1 className="text-3xl font-bold text-gray-900">{property.title}</h1>
         <p className="text-lg text-gray-600 mt-2">{property.price} &#8364; /month - {property.location.city}, {property.location.district}, {property.location.street}</p>
       </div>
 
-      {/* Image Gallery with Slider */}
       <div className="flex justify-center">
       <div className="mt-6 w-10/12 sm:w-6/12">
     <Slider {...settings}>
@@ -135,7 +133,7 @@ const PropertyDetails = () => {
             src={image}
             alt={`Property ${index + 1}`}
             className="w-full rounded-lg cursor-pointer"
-            onClick={() => openFullScreen(image)} // Function to open full-screen view
+            onClick={() => openFullScreen(image)}
           />
         </div>
       ))}
@@ -144,7 +142,6 @@ const PropertyDetails = () => {
 
       </div>
      
-      {/* Thumbnails Gallery */}
       <div className="mt-6 flex gap-4 overflow-x-auto justify-center">
         {property.images && property.images.map((image, index) => (
           <div key={index} className="cursor-pointer" onClick={() => openFullScreen(image)}>
@@ -157,8 +154,6 @@ const PropertyDetails = () => {
         ))}
       </div>
      
-
-      {/* Full-Screen Image Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
           <div className="relative max-w-3xl">
@@ -194,7 +189,6 @@ const PropertyDetails = () => {
         </div>
       )}
 
-      {/* Property Details */}
       <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 mt-8">
         <h2 className="text-2xl font-semibold text-gray-900">Property Details</h2>
         <p className="text-gray-700 mt-4">{property.description}</p>
@@ -246,7 +240,6 @@ const PropertyDetails = () => {
           Call Us
         </a>
 
-        {/* Share Button */}
         <button
           onClick={openShareModal}
           className="bg-blue-500 text-white py-2 px-6 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-600 transition duration-300 w-4/12"
@@ -255,7 +248,6 @@ const PropertyDetails = () => {
         </button>
       </div>
 
-      {/* Share Modal */}
       {isShareModalOpen && (
   <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-[9999]">
     <div className="bg-black rounded-lg p-6 w-80">
@@ -295,7 +287,6 @@ const PropertyDetails = () => {
     </div>
   </div>
 )}
-
 
     </div>
   );
