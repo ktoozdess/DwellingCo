@@ -5,21 +5,17 @@ import { useAuth } from "../Provider/AuthProvider";
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
 
-
   useEffect(() => {
-    // Проверка токена при загрузке компонента
     const token = localStorage.getItem("token");
     if (token) {
-      setIsAuthenticated(true); // Пользователь авторизован
+      setIsAuthenticated(true); 
     }
   }, []);
 
-  // Функция для выхода
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
   };
-
 
   return (
     <header className="bg-white shadow-md">

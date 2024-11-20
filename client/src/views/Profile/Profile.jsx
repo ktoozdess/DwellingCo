@@ -21,10 +21,8 @@ const ProfilePage = () => {
           },
         });
         if (response.status === 401) {
-            // Token expired, log out user
             localStorage.removeItem('token');
             navigate('/login')
-            // Redirect to login or show a message to log in again
           }
 
         if (!response.ok) throw new Error('Failed to fetch profile data');
