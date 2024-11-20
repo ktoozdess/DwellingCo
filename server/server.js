@@ -17,11 +17,11 @@ const app = express();
 
 // CORS Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow requests only from this frontend URL
+  origin: 'http://5.249.145.114:5002/', // Allow requests only from this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
   credentials: true, // Allow cookies or other credentials
-}));
+}));        
 
 app.use(express.json());
 
@@ -132,20 +132,19 @@ app.get('/api/properties', async (req, res) => {
 });
 
 // Пример маршрута
-app.get('/', (req, res) => {
-  res.send('Сервер работает!');
-});
-
-// Запуск сервера
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
-});
-
+//app.get('/', (req, res) => {
+//  res.send('Сервер работает!');
+//});
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Прокси для всех других запросов
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
+// Запуск сервера
+const PORT = process.env.PORT || 5002;
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });

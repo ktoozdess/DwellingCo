@@ -26,7 +26,7 @@ const PropertyDetails = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/property/${id}`);
+        const response = await fetch(`http://5.249.145.114:5002/api/property/${id}`);
         if (!response.ok) {
           throw new Error('Error fetching data');
         }
