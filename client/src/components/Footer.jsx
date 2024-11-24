@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
         )}
         <div className="max-w-7xl mx-auto py-4 text-center">
-            <p className="text-gray-600">© 2024 DwellingCo</p>
+            <p className="text-gray-600">© 2024 Dwelling</p>
         </div>
     </footer>
   );
