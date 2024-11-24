@@ -14,7 +14,7 @@ const ProfilePage = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No token found');
         
-        const response = await fetch('http://5.249.145.114:5002/api/profile', {
+        const response = await fetch('/api/profile', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

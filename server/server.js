@@ -14,11 +14,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://5.249.145.114:5002/', 
-    'http://dwellingco.site/', 
-  ], // Allow requests only from this frontend URL
+  origin: 'http://dwellingco.site/', // Allow requests only from this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
   credentials: true, // Allow cookies or other credentials
