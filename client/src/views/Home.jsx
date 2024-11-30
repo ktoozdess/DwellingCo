@@ -18,7 +18,15 @@ const Home = () => {
 
   return (
     <div>
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 px-4">
+      <ul className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 ">
+          <li>
+            <a href="https://t.me/DwellingCo" className="flex items-center space-x-2">
+              <b className="text-blue-900">Our TG Blog</b>
+              <img className="w-6" src="https://iconsdwelling.r1-it.storage.cloud.it/telegram_logo_icon.png" />
+            </a>
+          </li>
+        </ul>
+    <div className="flex flex-col justify-center items-center min-h-screen px-4">
       <h1 className="text-5xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-8 text-center">Welcome to Dwelling</h1>
       <p className="text-2xl sm:text-lg text-gray-600 mb-4 sm:mb-6 text-center">Find the perfect rental.</p>
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center w-full sm:w-auto">
@@ -29,12 +37,19 @@ const Home = () => {
           onChange={(e) => setCity(e.target.value)}
           className="p-3 w-full sm:w-80 border border-gray-300 rounded shadow-md text-gray-700"
         />
+       
         <button
           onClick={handleSearch}
           className="bg-black text-white py-2 px-6 w-full sm:w-auto rounded hover:bg-gray-800 transition duration-300"
         >
           Search
         </button>
+      </div>
+      <div className="mt-6 text-start">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Currently available in:</h2>
+        <p className="text-gray-600">
+          Pavia, Cremona, Lecco, Bergamo, Brescia, Como, Monza
+        </p>
       </div>
     </div>
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 text-gray-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
