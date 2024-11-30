@@ -16,7 +16,7 @@ const SearchResult = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch(`/api/properties?city=${city}`); 
+        const response = await fetch(`http://localhost:5002/api/properties?city=${city}`); 
         if (!response.ok) {
           throw new Error('Error fetching data');
         }
