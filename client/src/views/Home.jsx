@@ -17,25 +17,30 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      className="bg-cover bg-center h-screen"
+      style={{
+        backgroundImage: "url('https://iconsdwelling.r1-it.storage.cloud.it/test1.jpg')", // Замените 'your-image-url' на вашу ссылку
+      }}
+    >
       <ul className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 ">
           <li>
             <a href="https://t.me/DwellingCo" className="flex items-center space-x-2">
-              <b className="text-blue-900">Our TG Blog</b>
+              <b className="text-blue-00">Our TG Blog</b>
               <img className="w-6" src="https://iconsdwelling.r1-it.storage.cloud.it/telegram_logo_icon.png" />
             </a>
           </li>
         </ul>
     <div className="flex flex-col justify-center items-center min-h-screen px-4">
-      <h1 className="text-5xl sm:text-4xl font-bold text-gray-800 mb-4 sm:mb-8 text-center">Welcome to Dwelling</h1>
-      <p className="text-2xl sm:text-lg text-gray-600 mb-4 sm:mb-6 text-center">Find the perfect rental.</p>
+      <h1 className="text-5xl sm:text-4xl font-bold text-gray-200 mb-4 sm:mb-8 text-center">Welcome to Dwelling</h1>
+      <p className="text-2xl sm:text-lg text-gray-100 mb-4 sm:mb-6 text-center">Find the perfect rental.</p>
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center w-full sm:w-auto">
         <input
           type="text"
           placeholder="Enter a city..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          className="p-3 w-full sm:w-80 border border-gray-300 rounded shadow-md text-gray-700"
+          className="p-3 w-full sm:w-80 border border-gray-300 rounded shadow-md text-gray-800 focus:outline-none"
         />
        
         <button
@@ -46,8 +51,8 @@ const Home = () => {
         </button>
       </div>
       <div className="mt-6 text-start">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Currently available in:</h2>
-        <p className="text-gray-600">
+        <h2 className="text-xl font-semibold text-gray-300 mb-4">Currently available in:</h2>
+        <p className="text-gray-300">
           Pavia, Cremona, Lecco, Bergamo, Brescia, Como, Monza
         </p>
       </div>
