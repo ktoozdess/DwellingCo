@@ -17,6 +17,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://5.249.145.114:5002/', 
+    'http://31.14.142.189:5002/',
     'http://dwellingco.site/', 
   ], // Allow requests only from this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
